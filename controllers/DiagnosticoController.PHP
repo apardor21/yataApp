@@ -24,11 +24,12 @@ class DiagnosticoController {
         echo json_encode(["success" => $model->create($data)]);
     }
 
-    public function listar() {
+  public function listarTodo() {
     $model = new Diagnostico();
     $datos = $model->obtenerTodos();
 
     echo json_encode($datos);
 }
+
 
 }

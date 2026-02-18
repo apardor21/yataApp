@@ -28,10 +28,15 @@ class Diagnostico {
     }
 
     public function obtenerTodos() {
-    $sql = "SELECT * FROM diagnosticos";
+
+    $sql = "SELECT id, nombre, medicamentos 
+            FROM diagnosticos";
+
     $stmt = $this->conn->prepare($sql);
     $stmt->execute();
+
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
 
 }
