@@ -22,4 +22,14 @@ class Usuario {
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function buscarPorUsuario($usuario)
+{
+    $sql = "SELECT * FROM usuarios WHERE username = ?";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute([$usuario]);
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
 }

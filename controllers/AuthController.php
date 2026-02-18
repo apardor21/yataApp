@@ -8,34 +8,41 @@ class AuthController {
         require_once __DIR__ . "/../views/auth/login.php";
     }
 
-    public function login() {
+   public function login() {
 
-        session_start();
+    session_start();
 
-        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-            $username = trim($_POST["username"]);
-            $password = trim($_POST["password"]);
+        $username = trim($_POST["usuario"]);
+        $password = trim($_POST["password"]);
 
-            $usuarioModel = new Usuario();
-            $usuario = $usuarioModel->login($username);
+        $usuarioModel = new Usuario();
+        $usuario = $usuarioModel->login($username);
 
-            if ($usuario && password_verify($password, $usuario["password"])) {
+        if ($usuario && password_verify($password, $usuario["password"])) {
 
-                $_SESSION["user_id"] = $usuario["id"];
-                $_SESSION["username"] = $usuario["username"];
-                $_SESSION["rol"] = $usuario["rol"];
+            $_SESSION["user_id"] = $usuario["id"];
+            $_SESSION["username"] = $usuario["username"];
+            $_SESSION["rol"] = $usuario["rol"];
 
-                header("Location: index.php?route=dashboard");
-                exit;
+            header("Location: index.php?route=dashboard");
+            exit;
 
-            } else {
-                $_SESSION["error"] = "Usuario o contraseña incorrectos";
-                header("Location: index.php");
-                exit;
-            }
+        } else {
+
+            $_SESSION["error"] = "Usuario o contraseña incorrectos";
+            header("Location: index.php?route=login");
+            exit;
         }
     }
+}
+
+
+
+
+
+
 
     public function logout() {
 
